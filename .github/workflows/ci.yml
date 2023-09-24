@@ -6,7 +6,7 @@ on:
             - main
 
 jobs:
-    container-job:
+    build_and_test:
         runs-on: ubuntu-latest
         container: node:20.7-bookworm-slim
         services:
