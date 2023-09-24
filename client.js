@@ -9,17 +9,18 @@ const pgclient = new Client({
   user: process.env.PGUSER_TEST,
   password: process.env.PGPASSWORD_TEST,
 });
+const database = process.env.PGDATABASE_TEST;
 
 async function setupDatabase() {
   try {
     await pgclient.connect();
-    const res = await pgclient.query(`SELECT datname FROM pg_catalog.pg_database WHERE datname = '${pgclient.database}'`);
+    const res = await pgclient.query(`SELECT datname FROM pg_catalog.pg_database WHERE datname = '${database}'`);
     if (res.rowCount === 0) {
-      console.log(`${pgclient.database} database not found, creating it.`);
-      await pgclient.query(`CREATE DATABASE "${pgclient.database}";`);
-      console.log(`created database ${pgclient.database}.`);
+      console.log(`${database} database not found, creating it.`);
+      await pgclient.query(`CREATE DATABASE "${database}";`);
+      console.log(`created database ${database}.`);
     } else {
-      console.log(`${pgclient.database} database already exists.`);
+      console.log(`${database} database already exists.`);
     }
   } catch (error) {
     console.error(error.stack);
