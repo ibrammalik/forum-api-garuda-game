@@ -24,10 +24,19 @@ jobs:
             - name: Check out repository code
               uses: actions/checkout@v4
 
-            - name: Build and Test
+            - name: Install Dependencies
+              run: npm install
+
+            - name: Create Database
+              run: node client.js
+              env:
+                  PGHOST_TEST: ${{ secrets.PGHOST_TEST }}
+                  PGUSER_TEST: ${{ secrets.PGUSER_TEST }}
+                  PGPASSWORD_TEST: ${{ secrets.PGPASSWORD_TEST }}
+                  PGPORT_TEST: ${{ secrets.PGPORT_TEST }}
+
+            - name: Populating Table and Test
               run: |
-                  npm install
-                  node client.js
                   npm run migrate up
                   npm run test
               env:
