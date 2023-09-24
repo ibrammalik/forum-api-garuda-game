@@ -25,7 +25,8 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Build and Test
-              run: npm install
+              run: |
+                  npm install
                   node client.js
                   npm run migrate up
                   npm run test
