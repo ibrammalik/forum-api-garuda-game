@@ -5,6 +5,7 @@ const DetailThread = require('../../../Domains/threads/entities/DetailThread');
 const DetailComment = require('../../../Domains/comments/entities/DetailComment');
 const ReplyRepository = require('../../../Domains/replies/ReplyRepository');
 const DetailReply = require('../../../Domains/replies/entities/DetailReply');
+const LikeRepository = require('../../../Domains/likes/LikeRepository');
 
 describe('GetThreadDetailUseCase', () => {
   it('should throw error when thread is not valid', async () => {
@@ -82,10 +83,17 @@ describe('GetThreadDetailUseCase', () => {
       comments: [],
     };
 
+    const mockLikeCommentCount = (commentId) => {
+      if (commentId === 'comment-_pby2_tmXV6bcvcdev8xk') return Promise.resolve(5);
+      if (commentId === 'comment-yksuCoxM2s4MMrZJO-qVD') return Promise.resolve(10);
+      return Promise.resolve(0);
+    };
+
     // creating dependency of use case
     const mockThreadRepository = new ThreadRepository();
     const mockCommentRepository = new CommentRepository();
     const mockReplyRepository = new ReplyRepository();
+    const mockLikeRepository = new LikeRepository();
 
     // mocking needed function
     mockThreadRepository.isThreadValid = jest.fn()
@@ -96,12 +104,15 @@ describe('GetThreadDetailUseCase', () => {
       .mockImplementation(() => Promise.resolve(mockCommentReplies));
     mockThreadRepository.getDetailThread = jest.fn()
       .mockImplementation(() => Promise.resolve(mockDetailThread));
+    mockLikeRepository.likeCommentCount = jest.fn()
+      .mockImplementation(mockLikeCommentCount);
 
     // creating use case instance
     const getThreadDetailUseCase = new GetThreadDetailUseCase({
       threadRepository: mockThreadRepository,
       commentRepository: mockCommentRepository,
       replyRepository: mockReplyRepository,
+      likeRepository: mockLikeRepository,
     });
 
     // Action
@@ -130,6 +141,7 @@ describe('GetThreadDetailUseCase', () => {
           ],
           content: 'sebuah comment',
           isDeleted: false,
+          likeCount: 5,
         }),
         new DetailComment({
           id: 'comment-yksuCoxM2s4MMrZJO-qVD',
@@ -146,6 +158,7 @@ describe('GetThreadDetailUseCase', () => {
           ],
           content: 'sebuah comment',
           isDeleted: true,
+          likeCount: 10,
         }),
       ],
     }));

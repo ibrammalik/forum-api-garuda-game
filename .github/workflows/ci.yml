@@ -34,6 +34,7 @@ jobs:
                   PGUSER_TEST: ${{ secrets.PGUSER_TEST }}
                   PGPASSWORD_TEST: ${{ secrets.PGPASSWORD_TEST }}
                   PGPORT_TEST: ${{ secrets.PGPORT_TEST }}
+                  PGDATABASE_TEST: ${{ secrets.PGDATABASE_TEST }}
 
             - name: Populating Table and Test
               run: |
