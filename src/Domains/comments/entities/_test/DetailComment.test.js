@@ -9,6 +9,7 @@ describe('a DetailComment entities', () => {
       date: '2021-08-08T07:59:18.982Z',
       replies: [],
       content: 'A Comment Content',
+      likeCount: 5,
       // isDeleted: false
     };
 
@@ -24,6 +25,7 @@ describe('a DetailComment entities', () => {
       date: false,
       replies: false,
       content: 'A Comment Content',
+      likeCount: 5,
       isDeleted: false,
     };
 
@@ -39,6 +41,7 @@ describe('a DetailComment entities', () => {
       date: '2021-08-08T07:59:18.982Z',
       replies: [],
       content: 'A Comment Content',
+      likeCount: 5,
       isDeleted: false,
     };
 
@@ -51,5 +54,6 @@ describe('a DetailComment entities', () => {
     expect(detailComment.date).toEqual(payload.date);
     expect(detailComment.replies).toEqual(payload.replies);
     expect(detailComment.content).toEqual(payload.content);
+    expect(detailComment.likeCount).toEqual(payload.likeCount);
   });
 });
