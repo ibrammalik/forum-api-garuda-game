@@ -8,7 +8,6 @@ const pgclient = new Client({
   port: process.env.PGPORT_TEST,
   user: process.env.PGUSER_TEST,
   password: process.env.PGPASSWORD_TEST,
-  database: process.env.PGDATABASE_TEST,
 });
 
 async function setupDatabase() {
@@ -22,7 +21,6 @@ async function setupDatabase() {
     } else {
       console.log(`${pgclient.database} database already exists.`);
     }
-    console.log('Database created');
   } catch (error) {
     console.error(error.stack);
   } finally {
