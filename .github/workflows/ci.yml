@@ -6,23 +6,27 @@ on:
             - main
 
 jobs:
-    test:
+    container-job:
         runs-on: ubuntu-latest
-
-        strategy:
-            matrix:
-                node-version: [14.x]
-                # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        container: node:20.7-bookworm-slim
+        services:
+            postgres:
+                image: postgres
+                env:
+                    POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD_TEST }}
+                options: >-
+                    --health-cmd pg_isready
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
 
         steps:
-            - uses: actions/checkout@v2
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v2
-              with:
-                  node-version: ${{ matrix.node-version }}
-            - name: npm install migrate and test
-              run: |
-                  npm install
+            - name: Check out repository code
+              uses: actions/checkout@v4
+
+            - name: Build and Test
+              run: npm install
+                  node client.js
                   npm run migrate up
                   npm run test
               env:
