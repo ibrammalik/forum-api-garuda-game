@@ -13,11 +13,11 @@ class LikeCommentUseCase {
       .doesThisUserLikesThisComment({ userId, commentId });
 
     if (!isThreadValid) {
-      throw new Error('ADD_REPLY_USE_CASE.THREAD_NOT_VALID');
+      throw new Error('LIKE_COMMENT_USE_CASE.THREAD_NOT_VALID');
     }
 
     if (!isCommentValid) {
-      throw new Error('ADD_REPLY_USE_CASE.COMMENT_NOT_VALID');
+      throw new Error('LIKE_COMMENT_USE_CASE.COMMENT_NOT_VALID');
     }
 
     if (!isUserLikes) {

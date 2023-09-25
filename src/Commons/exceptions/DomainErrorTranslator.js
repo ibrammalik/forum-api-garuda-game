@@ -36,6 +36,8 @@ DomainErrorTranslator._directories = {
   'DELETE_REPLY_USE_CASE.REPLY_NOT_VALID': new NotFoundError('tidak dapat menghapus reply karena reply tidak valid'),
   'DELETE_REPLY_USE_CASE.NOT_REPLY_OWNER': new AuthorizationError('tidak dapat menghapus reply karena bukan pemilik reply'),
   'GET_THREAD_DETAIL_USE_CASE.THREAD_NOT_VALID': new NotFoundError('tidak dapat menemukan thread'),
+  'LIKE_COMMENT_USE_CASE.THREAD_NOT_VALID': new NotFoundError('tidak dapat like / cancel like comment karena thread tidak valid'),
+  'LIKE_COMMENT_USE_CASE.COMMENT_NOT_VALID': new NotFoundError('tidak dapat like / cancel like comment karena comment tidak valid'),
 };
 
 module.exports = DomainErrorTranslator;
