@@ -94,7 +94,7 @@ describe('/threads/{threadId}/comments endpoint', () => {
       // Arrange
       const server = await createServer(container);
       const {
-        accessToken, threadId, commentId,
+        accessToken, threadId,
       } = await ServerTestHelper.addUserThreadComment(server);
 
       // Action
